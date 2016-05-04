@@ -1,5 +1,6 @@
 <h1>$task.getDescription()</h1>
 
+
 <p>Edit task:</p>
 
 <form action="/categories/$task.getCategoryId()/tasks/$task.getId()" method="post">
@@ -11,5 +12,6 @@
 <form action="/categories/$task.getCategoryId()/tasks/$task.getId()/delete" method="post">
   <button type="submit" class="btn btn-danger" id="delete-task">Delete Task</button>
 </form>
+
 
 <a href="/categories/$category.getId()">Return to $category.getName()</a>

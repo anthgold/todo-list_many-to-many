@@ -65,7 +65,6 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Category category = Category.find(Integer.parseInt(request.queryParams("categoryId")));
       String description = request.queryParams("description");
-      // ** THIS SECTION UPDATED FOR DB VERSION ***
       Task newTask = new Task(description, category.getId());
       newTask.save();
 
