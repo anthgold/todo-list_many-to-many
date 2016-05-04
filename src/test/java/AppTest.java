@@ -92,7 +92,6 @@ public void tearDown() {
      goTo(categoryPath);
      assertThat(pageSource()).contains("Mow the lawn");
      assertThat(pageSource()).contains("Do the dishes");
-
    }
 
   @Test
@@ -132,7 +131,5 @@ public void tearDown() {
     submit("#delete-task");
     assertEquals(0, Task.all().size());
   }
-
-
 
 }

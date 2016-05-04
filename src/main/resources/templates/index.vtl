@@ -6,7 +6,7 @@
   <label for="name">Category name</label>
   <input id="name" name="name" type="text">
   <button id="catBtn" type="submit" class="btn btn-success">Add Category</button>
-</form>
+</form> ## why catBtn?
 
 
 <p> Add tasks to any category:</p>
@@ -17,7 +17,7 @@
     #foreach($category in $categories)
       <option value="$category.getId()">$category.getName()</option>
     #end
-  </select>
+  </select> 
 
   <div class="form-group">
     <label for="description">Description</label>

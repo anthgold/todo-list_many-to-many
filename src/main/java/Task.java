@@ -62,7 +62,7 @@ public class Task {
       return task;
     }
   }
-  
+
   public void update(String description) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE tasks SET description = :description WHERE id = :id";
@@ -81,6 +81,5 @@ public class Task {
       .executeUpdate();
     }
   }
-
 
 }
