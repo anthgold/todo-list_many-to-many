@@ -31,7 +31,7 @@ public class Task {
     } else {
       Task newTask = (Task) otherTask;
       return this.getDescription().equals(newTask.getDescription()) &&
-             this.getId() == newTask.getId() &&
+             this.getId() == newTask.getId();
     }
   }
 
