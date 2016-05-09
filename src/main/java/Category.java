@@ -1,6 +1,5 @@
 import java.util.List;
 import org.sql2o.*;
-import java.util.Arrays;
 
 public class Category {
   private int id;
@@ -25,15 +24,6 @@ public class Category {
     }
   }
 
-  public List<Task> getTasks() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks where categoryId=:id";
-      return con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeAndFetch(Task.class);
-      }
-    }   
-
   @Override
   public boolean equals(Object otherCategory) {
     if (!(otherCategory instanceof Category)) {
@@ -44,6 +34,15 @@ public class Category {
              this.getId() == newCategory.getId();
     }
   }
+
+  // public List<Task> getTasks() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT * FROM tasks where categoryId=:id";
+  //     return con.createQuery(sql)
+  //       .addParameter("id", this.id)
+  //       .executeAndFetch(Task.class);
+  //     }
+  //   }
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
@@ -64,4 +63,5 @@ public class Category {
       return category;
     }
   }
+  
 }
