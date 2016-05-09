@@ -1,5 +1,6 @@
 import org.sql2o.*;
 import org.junit.*;
+import java.util.List;
 import static org.junit.Assert.*;
 
 public class TaskTest {
@@ -70,6 +71,28 @@ public class TaskTest {
     int myTaskId = myTask.getId();
     myTask.delete();
     assertEquals(null, Task.find(myTaskId));
+  }
+
+  @Test
+  public void addCategory_addsCategoryToTask_true() {
+      Category myCategory = new Category("Shopping");
+      myCategory.save();
+      Task myTask = new Task("Buy butter");
+      myTask.save();
+      myTask.addCategory(myCategory);
+      Category savedCategory = myTask.getCategories().get(0);
+      assertTrue(myCategory.equals(savedCategory));
+  }
+
+  @Test
+  public void getCategories_returnsAllCategories_List() {
+    Category myCategory = new Category("Maintenance");
+    myCategory.save();
+    Task myTask = new Task("Change the oil");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    List savedCategories = myTask.getCategories();
+    assertEquals(1, savedCategories.size());
   }
 
 }
