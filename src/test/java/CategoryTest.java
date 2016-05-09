@@ -78,16 +78,16 @@ public class CategoryTest {
     assertEquals(1, savedTasks.size());
   }
 
-  // @Test
-  // public void getTasks_retrievesALlTasksFromDatabase_tasksList() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   Task firstTask = new Task("Mow the lawn", myCategory.getId());
-  //   firstTask.save();
-  //   Task secondTask = new Task("Do the dishes", myCategory.getId());
-  //   secondTask.save();
-  //   Task[] tasks = new Task[] { firstTask, secondTask };
-  //   assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
-  // }
+  @Test
+
+  public void delete_deletesAllTasksAndCategoriesAssociations_true() {
+    Category myCategory = new Category("Dental procedures");
+    myCategory.save();
+    Task myTask = new Task("Polish molars");
+    myTask.save();
+    myCategory.addTask(myTask);
+    myCategory.delete();
+    assertEquals(0, myTask.getCategories().size());
+  }
 
 }

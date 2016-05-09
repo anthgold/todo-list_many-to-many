@@ -95,4 +95,15 @@ public class TaskTest {
     assertEquals(1, savedCategories.size());
   }
 
+  @Test
+  public void delete_deletesAllTasksAndCategoriesAssociations_true() {
+    Category myCategory = new Category("Dental procedures");
+    myCategory.save();
+    Task myTask = new Task("Polish molars");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    myTask.delete();
+    assertEquals(0, myCategory.getTasks().size());
+  }
+
 }
