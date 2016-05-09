@@ -15,9 +15,9 @@ public class TaskTest {
   }
 
   @Test
-  public void getName_taskInstantiatesWithName_String() {
+  public void getDescription_taskInstantiatesWithDescription_String() {
     Task myTask = new Task("Mow the lawn");
-    assertEquals("Mow the lawn", myTask.getName());
+    assertEquals("Mow the lawn", myTask.getDescription());
   }
 
   @Test
@@ -26,7 +26,7 @@ public class TaskTest {
   }
 
   @Test
-  public void equals_returnsTrueIfNamesAretheSame_true() {
+  public void equals_returnsTrueIfDescriptionsAretheSame_true() {
     Task firstTask = new Task("Mow the lawn");
     Task secondTask = new Task("Mow the lawn");
     assertTrue(firstTask.equals(secondTask));
@@ -57,11 +57,11 @@ public class TaskTest {
 
 
   @Test
-  public void update_updatesTaskName_true() {
+  public void update_updatesTaskDescription_true() {
     Task myTask = new Task("Mow the lawn");
     myTask.save();
     myTask.update("Take a nap");
-    assertEquals("Take a nap", Task.find(myTask.getId()).getName());
+    assertEquals("Take a nap", Task.find(myTask.getId()).getDescription());
   }
 
   @Test

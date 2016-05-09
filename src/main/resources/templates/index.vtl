@@ -1,5 +1,9 @@
 <h1>To Do List!</h1>
 
+<h3><a href="/categories">Categories</a></h3>
+<h3><a href="/tasks">Tasks</a></h3>
+
+#*
 <p>Create a new category:</p>
 
 <form action="/categories" method="post">
@@ -17,7 +21,7 @@
     #foreach($category in $categories)
       <option value="$category.getId()">$category.getName()</option>
     #end
-  </select> 
+  </select>
 
   <div class="form-group">
     <label for="description">Description</label>
@@ -38,3 +42,4 @@
 #else
   <p>There are no categories yet!</p>
 #end
+*#
