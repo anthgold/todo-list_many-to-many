@@ -66,15 +66,6 @@ public class Task {
     }
   }
 
-  public void delete() {
-    try(Connection con = DB.sql2o.open()) {
-    String sql = "DELETE FROM tasks WHERE id = :id;";
-    con.createQuery(sql)
-      .addParameter("id", this.id)
-      .executeUpdate();
-    }
-  }
-
   public void addCategory(Category category) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO tasks_categories (task_id, category_id) VALUES (:task_id, :category_id)";
@@ -105,6 +96,18 @@ public class Task {
     }
   }
 
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteQuery = "DELETE FROM tasks WHERE id = :id;";
+        con.createQuery(deleteQuery)
+          .addParameter("id", this.getId())
+          .executeUpdate();
 
+      String joinDeleteQuery = "DELETE FROM tasks_categories WHERE task_id = :taskId";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("taskId", this.getId())
+          .executeUpdate();
+    }
+  }
 
 }
