@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 import org.sql2o.*;
 
 public class Category {
@@ -35,15 +36,6 @@ public class Category {
     }
   }
 
-  // public List<Task> getTasks() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT * FROM tasks where categoryId=:id";
-  //     return con.createQuery(sql)
-  //       .addParameter("id", this.id)
-  //       .executeAndFetch(Task.class);
-  //     }
-  //   }
-
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO Categories(name) VALUES (:name)";
@@ -63,5 +55,36 @@ public class Category {
       return category;
     }
   }
-  
+
+  public void addTask(Task task) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO tasks_categories (task_id, category_id) VALUES (:task_id, :category_id)";
+      con.createQuery(sql)
+        .addParameter("task_id", task.getId())
+        .addParameter("category_id", this.getId())
+        .executeUpdate();
+    }
+  }
+
+  public List<Task> getTasks(){
+    try(Connection con = DB.sql2o.open()){
+      String joinQuery = "SELECT task_id FROM tasks_categories WHERE category_id = :category_id";
+      List<Integer> taskIds = con.createQuery(joinQuery)
+        .addParameter("category_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+      List<Task> tasks = new ArrayList<Task>();
+
+      for (Integer taskId : taskIds) {
+        String taskQuery = "Select * From tasks WHERE id = :taskId";
+        Task task = con.createQuery(taskQuery)
+          .addParameter("taskId", taskId)
+          .executeAndFetchFirst(Task.class);
+        tasks.add(task);
+      }
+      return tasks;
+    }
+
+  }
+
 }

@@ -35,7 +35,7 @@ public class TaskTest {
   public void save_savesObjectIntoDB_true() {
     Task myTask = new Task("Mow the lawn");
     myTask.save();
-    assertEquals(Task.all().get(0).equals(myTask));
+    assertTrue(Task.all().get(0).equals(myTask));
   }
 
   @Test
