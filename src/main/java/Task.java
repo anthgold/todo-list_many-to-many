@@ -3,14 +3,14 @@ import org.sql2o.*;
 
 public class Task {
   private int id;
-  private String description;
+  private String name;
 
-  public Task(String description) {
-    this.description = description;
+  public Task(String name) {
+    this.name = name;
   }
 
-  public String getDescription() {
-    return description;
+  public String getName() {
+    return name;
   }
 
   public int getId() {
@@ -18,7 +18,7 @@ public class Task {
   }
 
   public static List<Task> all() {
-    String sql = "SELECT id, description FROM tasks";
+    String sql = "SELECT id, name FROM tasks";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -30,16 +30,16 @@ public class Task {
       return false;
     } else {
       Task newTask = (Task) otherTask;
-      return this.getDescription().equals(newTask.getDescription()) &&
+      return this.getName().equals(newTask.getName()) &&
              this.getId() == newTask.getId();
     }
   }
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description) VALUES (:description)";
+      String sql = "INSERT INTO tasks(name) VALUES (:name)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("description", this.description)
+        .addParameter("name", this.name)
         .executeUpdate()
         .getKey();
     }
@@ -55,11 +55,11 @@ public class Task {
     }
   }
 
-  public void update(String newDescription) {
+  public void update(String newName) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET description = :description WHERE id = :id";
+      String sql = "UPDATE tasks SET name = :name WHERE id = :id";
       con.createQuery(sql)
-        .addParameter("description", newDescription)
+        .addParameter("name", newName)
         .addParameter("id", this.id) // if buggy /\ from id
         .executeUpdate();
     }
