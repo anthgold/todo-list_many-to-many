@@ -11,7 +11,7 @@ import static org.fluentlenium.core.filter.FilterConstructor.*;
 
 public class AppTest extends FluentTest {
   public WebDriver webDriver = new HtmlUnitDriver();
-
+/*
   @Override
   public WebDriver getDefaultDriver() {
     return webDriver;
@@ -131,5 +131,5 @@ public void tearDown() {
     submit("#delete-task");
     assertEquals(0, Task.all().size());
   }
-
+*/
 }

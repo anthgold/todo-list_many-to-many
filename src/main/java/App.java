@@ -9,6 +9,7 @@ public class App {
 
   public static void main (String[] args){
 
+/*
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
@@ -102,6 +103,7 @@ public class App {
       model.put("template", "templates/category.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+*/
 
   }
 

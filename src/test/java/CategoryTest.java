@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class CategoryTest {
 
+
   @Before
   public void setUp() {
     DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/to_do_test", null, null);
@@ -78,4 +79,5 @@ public class CategoryTest {
     Task[] tasks = new Task[] { firstTask, secondTask };
     assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
   }
+  
 }
