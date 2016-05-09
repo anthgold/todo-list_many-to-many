@@ -4,11 +4,9 @@ import org.sql2o.*;
 public class Task {
   private int id;
   private String description;
-  private int categoryId;
 
   public Task(String description, int categoryId) {
     this.description = description;
-    this.categoryId = categoryId;
   }
 
   public String getDescription() {
