@@ -38,6 +38,7 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Household chores");
   }
 
+  // failed to include an early bit of code in App.Java, so probably built out more in the .vtls and App.Java in advance of the tests here
 
   // @Test
   // public void taskIsCreatedTest() {
