@@ -38,99 +38,59 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Household chores");
   }
 
-  // failed to include an early bit of code in App.Java, so probably built out more in the .vtls and App.Java in advance of the tests here
+  @Test
+  public void taskIsCreatedTest() {
+    goTo("http://localhost:4567/");
+    click("a", withText("Tasks"));
+    fill("#description").with("Buy milk");
+    submit("#catBtn");
+    assertThat(pageSource()).contains("Buy milk");
+  }
 
-  // @Test
-  // public void taskIsCreatedTest() {
-  //   goTo("http://localhost:4567/");
-  //   click("a", withText("Tasks"));
-  //   fill("#description").with("Buy milk");
-  //   submit("#catBtn");
-  //   assertThat(pageSource()).contains("Buy milk");
-  // }
+   @Test
+   public void categoryShowPageDiplayName() {
+     Category testCategory = new Category("Head cheese");
+     testCategory.save();
+     String url = String.format("http://localhost:4567/categories/%d", testCategory.getId());
+     goTo(url);
+     assertThat(pageSource()).contains("Head cheese");
+   }
 
-  // this one seems gone
-  // @Test
-  // public void categoryIsDisplayedTest() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
-  //   goTo(categoryPath);
-  //   assertThat(pageSource()).contains("Household chores");
-  // }
+   @Test
+   public void taskShowPageDisplaysDescription() {
+     Task testTask = new Task("Mow the lawn");
+     testTask.save();
+     String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
+     goTo(url);
+     assertThat(pageSource()).contains("Mow the lawn");
+   }
 
+   @Test
+   public void taskIsAddedToCategory() {
+     Category testCategory = new Category("Household chores");
+     testCategory.save();
+     Task testTask = new Task("Mow the lawn");
+     testTask.save();
+     String url = String.format("http://localhost:4567/categories/%d", testCategory.getId());
+     goTo(url);
+     fillSelect("#task_id").withText("Mow the lawn");
+     submit("#catBtn");
+     assertThat(pageSource()).contains("<li>");
+     assertThat(pageSource()).contains("Mow the lawn");
+   }
 
-  //  @Test
-  //  public void categoryShowPageDiplayName() {
-  //    goTo("http://localhost:4567/categories/new");
-  //    fill("#name").with("Household cheese");
-  //    submit(".btn");
-  //    click("a", withText("View categories"));
-  //    click("a", withText("Household cheese"));
-  //    assertThat(pageSource()).contains("Household cheese");
-  //  }
-  //
-  //  @Test
-  //  public void categoryTasksFormIsDisplayed() {
-  //    goTo("http://localhost:4567/categories/new");
-  //    fill("#name").with("Shopping");
-  //    submit(".btn");
-  //    click("a", withText("View categories"));
-  //    click("a", withText("Shopping"));
-  //    click("a", withText("Add a new task"));
-  //    assertThat(pageSource()).contains("Add a task to Shopping");
-  //  }
-  //
-  //  @Test
-  //  public void allTasksDisplayDescriptionOnCategoryPage() {
-  //    Category myCategory = new Category ("Household chores");
-  //    myCategory.save();
-  //    Task firstTask = new Task ("Mow the lawn", myCategory.getId());
-  //    firstTask.save();
-  //    Task secondTask = new Task("Do the dishes", myCategory.getId());
-  //    secondTask.save();
-  //    String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
-  //    goTo(categoryPath);
-  //    assertThat(pageSource()).contains("Mow the lawn");
-  //    assertThat(pageSource()).contains("Do the dishes");
-  //  }
-  //
-  // @Test
-  // public void taskShowPage() {
-  //   Category myCategory = new Category("Home");
-  //   myCategory.save();
-  //   Task myTask = new Task("Clean", myCategory.getId());
-  //   myTask.save();
-  //   String categoryPath = String.format("http://localhost:4567/categories/%d", myCategory.getId());
-  //   goTo(categoryPath);
-  //   click("a", withText("Clean"));
-  //   assertThat(pageSource()).contains("Clean");
-  //   assertThat(pageSource()).contains("Return to Home");
-  // }
-  //
-  // @Test
-  // public void taskUpdate() {
-  //   Category myCategory = new Category("Home");
-  //   myCategory.save();
-  //   Task myTask = new Task("Clean", myCategory.getId());
-  //   myTask.save();
-  //   String taskPath = String.format("http://localhost:4567/categories/%d/tasks/%d", myCategory.getId(), myTask.getId());
-  //   goTo(taskPath);
-  //   fill("#description").with("Dance");
-  //   submit("#update-task");
-  //   assertThat(pageSource()).contains("Dance");
-  // }
-  //
-  // @Test
-  // public void taskDelete() {
-  //   Category myCategory = new Category("Home");
-  //   myCategory.save();
-  //   Task myTask = new Task("Clean", myCategory.getId());
-  //   myTask.save();
-  //   String taskPath = String.format("http://localhost:4567/categories/%d/tasks/%d", myCategory.getId(), myTask.getId());
-  //   goTo(taskPath);
-  //   submit("#delete-task");
-  //   assertEquals(0, Task.all().size());
-  // }
+   @Test
+   public void categoryIsAddedToTask() {
+     Category testCategory = new Category("Household chores");
+     testCategory.save();
+     Task testTask = new Task("Mow the lawn");
+     testTask.save();
+     String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
+     goTo(url);
+     fillSelect("#category_id").withText("Household chores");
+     submit("#catBtn");
+     assertThat(pageSource()).contains("<li>");
+     assertThat(pageSource()).contains("Household chores");
+   }
 
 }
